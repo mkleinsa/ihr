@@ -28,9 +28,12 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
       - name: Install package dependencies
         run: |
-          Rscript -e 'install.packages(c("devtools"))'
+          Rscript -e 'install.packages("devtools")'
           Rscript -e 'devtools::install_deps(dependencies = TRUE)'
 
       - name: Build package
