@@ -39,6 +39,11 @@ jobs:
       - name: Build package
         run: R CMD build .
 
+      - name: Install package
+        run: |
+          PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
+          R CMD INSTALL "$PKG_TARBALL"
+
       - name: Check package
         run: |
           PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
