@@ -41,7 +41,7 @@ The ihr package includes two datasets: `example_heart_1`, and `example_heart_5`.
 Example data with 1 subject can be loaded with:
 
 ```{r}
-example_heart_1 = data("example_heart_1")
+data("example_heart_1")
 ```
   
 This dataset contains 154104 observations of 3 columns corresponding to the three components listed in the introduction:

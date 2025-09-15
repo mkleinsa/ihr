@@ -28,7 +28,7 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Set up Pandoc
+      - name: Set up Pandoc (for R Markdown vignettes)
         uses: r-lib/actions/setup-pandoc@v2
 
       - name: Install package dependencies
@@ -36,15 +36,19 @@ jobs:
           Rscript -e 'install.packages("devtools")'
           Rscript -e 'devtools::install_deps(dependencies = TRUE)'
 
-      # - name: Install package
-      #   run: |
-      #     PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
-      #     R CMD INSTALL "$PKG_TARBALL"
+      # 1️⃣ Build the package tarball WITHOUT vignettes
+      - name: Build package (no vignettes)
+        run: R CMD build . --no-build-vignettes
 
-      - name: Build package
-        run: R CMD build .
-
-      - name: Check package
+      # 2️⃣ Install from that tarball
+      - name: Install package
         run: |
           PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
-          R CMD check "$PKG_TARBALL" --as-cran
+          R CMD INSTALL "$PKG_TARBALL"
+
+      # 3️⃣ Re-check WITH vignettes
+      - name: Check package (build vignettes)
+        run: |
+          PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
+          R CMD check "$PKG_TARBALL" --as-cran --run-donttest --force-multiarch --build-vignettes
+
