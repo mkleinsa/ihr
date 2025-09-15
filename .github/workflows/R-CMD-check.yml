@@ -36,13 +36,13 @@ jobs:
           Rscript -e 'install.packages("devtools")'
           Rscript -e 'devtools::install_deps(dependencies = TRUE)'
 
-      - name: Build package
-        run: R CMD build .
-
       - name: Install package
         run: |
           PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
           R CMD INSTALL "$PKG_TARBALL"
+
+      - name: Build package
+        run: R CMD build .
 
       - name: Check package
         run: |
