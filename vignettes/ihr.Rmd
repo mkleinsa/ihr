@@ -42,6 +42,13 @@ Example data with 1 subject can be loaded with:
 
 ```{r}
 data(example_heart_1)
+if (!exists("example_heart_1")) {
+  stop("example_heart_1 did NOT load.")
+} else {
+  message("example_heart_1 successfully loaded: ",
+          class(example_heart_1), " with ",
+          length(example_heart_1), " elements/rows (if applicable).")
+}
 ```
   
 This dataset contains 154104 observations of 3 columns corresponding to the three components listed in the introduction:
