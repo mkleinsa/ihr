@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^ihr\.Rproj$
 ^\.Rproj\.user$
 ^doc$
